@@ -54,8 +54,9 @@ if __name__ == "__main__":
     worked = True
     changed = False
 
-    if os.path.exists("./.config.json"):
-        with open("./.config.json", "r") as f:
+    path = os.path.join(os.path.dirname(__file__), ".config.json")
+    if os.path.exists(path):
+        with open(path, "r") as f:
             config = json.load(f)
 
             config: dict
@@ -121,7 +122,7 @@ if __name__ == "__main__":
                 print(f"User {user} was not in list")
 
     if changed:
-        with open("./.config.json", "w") as f:
+        with open(path, "w") as f:
             json.dump(cfg.to_dict(), f, indent="  ")
 
     resp = requests.get(cfg.url, headers={"user-agent": "JellyTabby WebCrawler", "cookie": cfg.cookie_dict})
